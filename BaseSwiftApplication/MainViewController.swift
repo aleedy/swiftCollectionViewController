@@ -8,10 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
+    var label: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.whiteColor()
+        
+        label = UILabel(frame: CGRect(x: 50, y: 50, width: 400, height: 100))
+        label.text = "Base Swift Application"
+        label.font = UIFont.boldSystemFontOfSize(14)
+        self.view.addSubview(label)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
