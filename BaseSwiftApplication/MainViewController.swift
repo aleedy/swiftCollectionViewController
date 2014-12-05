@@ -92,7 +92,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
                 var p = caller.locationInView(collectionView!)
                 var indexPath = self.collectionView!.indexPathForItemAtPoint(p)
                 if( indexPath != nil){
-                    addExpandedViewforCellAtIndexPath(indexPath!)
+                    self.addExpandedViewforCellAtIndexPath(indexPath!)
                 }
                 isDragging = true
             } else {
@@ -118,23 +118,33 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout, 
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
+        return 6
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as UICollectionViewCell
-        cell.backgroundColor = getRandomColor()
+        cell.backgroundColor = getBackgroundColorForCell()
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if let heroView = self.heroView {
-            heroView.backgroundColor = collectionView.cellForItemAtIndexPath(indexPath)?.backgroundColor;
-        }
+        self.addExpandedViewforCellAtIndexPath(indexPath)
+        UIView.transitionWithView(self.newHeroView!, duration: 0.3, options: nil, animations: {
+            
+            self.newHeroView!.frame.origin.y = 0
+            
+            
+            
+            }, completion: { finished in
+                    self.heroView = self.newHeroView
+        })
+
+        
+    
     }
     
     
-    func getRandomColor() -> UIColor{
+    func getBackgroundColorForCell() -> UIColor{
         
         var randomRed:CGFloat = CGFloat(drand48())
         
